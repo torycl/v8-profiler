@@ -1,11 +1,5 @@
 var pack = require('./package.json');
-var binding = require('./' + [
-  'build',
-  'profiler',
-  'v' + pack.version,
-  ['node', 'v' + process.versions.modules, process.platform, process.arch].join('-'),
-  'profiler.node'
-].join('/'));
+var binding = require('./build/Release/profiler.node');
 
 var Stream = require('stream').Stream,
     inherits = require('util').inherits;

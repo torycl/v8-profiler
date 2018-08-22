@@ -1,8 +1,5 @@
 const expect  = require('chai').expect,
-      binary = require('node-pre-gyp'),
-      path = require('path'),
-      binding_path = binary.find(path.resolve(path.join(__dirname,'../package.json'))),
-      binding = require(binding_path);
+      binding = require('../build/Release/profiler.node');
 
 const NODE_V_010 = /^v0\.10\.\d+$/.test(process.version);
 const NODE_V_3 = /^v3\./.test(process.version);
