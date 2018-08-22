@@ -32,7 +32,7 @@ namespace nodex {
           Nan::New<Integer>(total)
         };
 
-        TryCatch try_catch;
+        TryCatch try_catch(v8::Isolate::GetCurrent());
         abort = reportProgress->Call(Nan::GetCurrentContext()->Global(), 2, argv);
 
         if (try_catch.HasCaught()) {
