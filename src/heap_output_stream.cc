@@ -14,7 +14,7 @@ namespace nodex {
 
   void OutputStreamAdapter::EndOfStream() {
     Nan::HandleScope scope;
-    TryCatch try_catch;
+    TryCatch try_catch(v8::Isolate::GetCurrent());
     callback->Call(Nan::GetCurrentContext()->Global(), 0, NULL);
 
     if (try_catch.HasCaught()) {
@@ -34,7 +34,7 @@ namespace nodex {
       Nan::New<Integer>(size)
     };
 
-    TryCatch try_catch;
+    TryCatch try_catch(v8::Isolate::GetCurrent());
     abort = iterator->Call(Nan::GetCurrentContext()->Global(), 2, argv);
 
     if (try_catch.HasCaught()) {
@@ -58,7 +58,7 @@ namespace nodex {
 
     Local<Value> argv[1] = {samples};
 
-    TryCatch try_catch;
+    TryCatch try_catch(v8::Isolate::GetCurrent());
     abort = iterator->Call(Nan::GetCurrentContext()->Global(), 1, argv);
 
     if (try_catch.HasCaught()) {
