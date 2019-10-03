@@ -5,7 +5,6 @@ namespace nodex {
   using v8::Array;
   using v8::CpuProfile;
   using v8::CpuProfileNode;
-  using v8::Handle;
   using v8::Number;
   using v8::Integer;
   using v8::Local;
@@ -39,7 +38,7 @@ namespace nodex {
     Local<Object> profiles = Nan::New<Object>(Profile::profiles);
     Local<Value> _uid = info.This()->Get(Nan::New<String>("uid").ToLocalChecked());
     Local<String> uid = Nan::To<String>(_uid).ToLocalChecked();
-    profiles->Delete(uid);
+    profiles->Delete(Nan::GetCurrentContext(), uid);
     static_cast<CpuProfile*>(ptr)->Delete();
   }
 
@@ -52,7 +51,7 @@ namespace nodex {
 
     uid_counter++;
 
-    Local<Object> profile = Nan::New(profile_template_)->NewInstance();
+    Local<Object> profile = Nan::New(profile_template_)->NewInstance(Nan::GetCurrentContext()).ToLocalChecked();
     Nan::SetInternalFieldPointer(profile, 0, const_cast<CpuProfile*>(node));
 
     const uint32_t uid_length = (((sizeof uid_counter) * 8) + 2)/3 + 2;
